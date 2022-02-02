@@ -1,0 +1,43 @@
+﻿@model PositionListVm
+
+<div id="main">
+    <header class="major">
+        <h2>Positions in our company</h2>
+    </header>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var position in Model.PositionList)
+                {
+                    <tr>
+                        <td>@position.Name</td>
+                        <td>@position.Description</td>
+                        <td>
+                            <a asp-action="Update" asp-all-route-data='new Dictionary<string, string> {
+                            {"id",$"{@position.Id}" },{"name",$"{@position.Name}"},{"description",$"{@position.Description}"}}'>Edit</a>
+                        </td>
+                        <td><a href="#">Delete</a></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        <ul class="actions special">
+            <li>
+                <a asp-action="Create" class="button large primary">Add New</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.scrollBy(0, 700);
+    });
+</script>
+

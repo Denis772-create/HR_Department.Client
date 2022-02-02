@@ -1,0 +1,29 @@
+﻿@model PositionForCreateVm
+<div id="main">
+    <header class="major">
+        <h2>Create new position in our company</h2>
+    </header>
+    <form method="post" asp-antiforgery="true" asp-action="Create">
+        <div class="row gtr-uniform">
+            <!-- Name -->
+            <div class="col-12 col-12-xsmall">
+                <input type="text" asp-for="Name" id="demo-name" placeholder="Name" />
+            </div>
+            <!-- Break -->
+            <div class="col-12">
+                <select asp-for="TypePositionId" id="demo-category" asp-items="ViewBag.PositionTypes"></select>
+            </div>
+            <!-- Description -->
+            <div class="col-12">
+                <textarea asp-for="Description" id="demo-message" placeholder="Enter your description" rows="6"></textarea>
+            </div>
+            <div class="col-12">
+                <ul class="actions">
+                    <li><input type="submit" value="Add" class="primary" /></li>
+                    <li><input type="reset" value="Reset" /></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+
+</div>
