@@ -12,26 +12,41 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HR.Department.WebMvc.Controllers
 {
-    public class PositionController : Controller
+    public class EmployeeController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly HttpClient _httpClient;
 
-        public PositionController(IHttpClientFactory httpClientFactory)
+        public EmployeeController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
             _httpClient = _httpClientFactory.CreateClient("MvcClient");
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTable()
+        public async Task<IActionResult> TableEmployeeByPositions()
         {
             var response = await _httpClient.GetAsync("position");
 
             if (response.IsSuccessStatusCode)
             {
                 var contentStream = await response.Content.ReadFromJsonAsync(typeof(PositionListVm));
-                return View("Table", (PositionListVm)contentStream);
+                return View("TableEmployeeByPositions", (PositionListVm)contentStream);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetTable(Guid id)
+        {
+            var response = await _httpClient.GetAsync($"employee/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var contentStream = await response.Content.ReadFromJsonAsync(typeof(EmployeeListVm));
+                return View("Table", (EmployeeListVm)contentStream);
             }
 
             return RedirectToAction("Index", "Home");
@@ -66,23 +81,23 @@ namespace HR.Department.WebMvc.Controllers
             return RedirectToAction("GetTable");
         }
 
-        [HttpGet]
-        public IActionResult Update(Guid id, string name, string description)
-        {
-            ViewBag.Id = id;
-            ViewBag.Name = name;
-            ViewBag.Description = description;
-            return View();
-        }
+        //[HttpGet]
+        //public IActionResult EditAddress(Guid id, string city, string country, string street)
+        //{
+        //    //ViewBag.Id = id;
+        //    //ViewBag.Name = name;
+        //    //ViewBag.Description = description;
+        //    //return View();
+        //}
 
         [HttpPost]
-        public async Task<IActionResult> Update(PositionForUpdateVm forUpdateVm)
+        public async Task<IActionResult> EditAddress(Guid id, string country, string city, string street)
         {
-            var jsonContent = new StringContent(JsonSerializer.Serialize(forUpdateVm),
+            var jsonContent = new StringContent(JsonSerializer.Serialize(new { country, city, street }),
                 Encoding.UTF8, MediaTypeNames.Application.Json);
 
             using var httpResponseMessage =
-                await _httpClient.PutAsync("position", jsonContent);
+                await _httpClient.PutAsync($"employee/{id}", jsonContent);
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
@@ -99,5 +114,6 @@ namespace HR.Department.WebMvc.Controllers
 
             return RedirectToAction("GetTable");
         }
+
     }
 }

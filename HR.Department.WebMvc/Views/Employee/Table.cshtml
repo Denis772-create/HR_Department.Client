@@ -1,0 +1,133 @@
+﻿@model EmployeeListVm
+
+<div id="main">
+    <header class="major">
+        <h2>Positions in our company</h2>
+    </header>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Phone</th>
+                    <th>RequiredSalary</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model.EmployeeList)
+                {
+                    <tr>
+                        <td>@employee.FirstName @employee.Surname</td>
+                        <td>@employee.Age</td>
+                        <td>@employee.Phone</td>
+                        <td>@employee.RequiredSalary</td>
+                        <td>
+                            <a href="#@employee.Id">Show Address</a>
+                            <!-- Modal Window -->
+                            <div id="@employee.Id" class="modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Address of @employee.FirstName @employee.Surname</h3>
+                                            <a href="#close" title="Close" class="close">×</a>
+                                        </div>
+                                        <div class="modal-body">
+                                            Country: @employee.Country ; City: @employee.City ; Street: @employee.Street
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    var scrollbar = document.body.clientWidth - window.innerWidth + 'px';
+
+                                    document.querySelector('[href="#@employee.Id"]').addEventListener('click', function () {
+                                        document.body.style.overflow = 'hidden';
+                                        document.querySelector('#@employee.Id').style.marginLeft = scrollbar;
+                                    });
+                                    document.querySelector('[href="#close"]').addEventListener('click', function () {
+                                        document.body.style.overflow = 'visible';
+                                        document.querySelector('#openModal').style.marginLeft = '0px';
+                                    });
+                                });
+                            </script>
+                        </td>
+                        <td>
+                            <a href="#update.@employee.Id">Edit Address</a>
+                            <!-- Modal Window -->
+                            <div id="update.@employee.Id" class="modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Edit Address of @employee.FirstName @employee.Surname</h3>
+                                            <a href="#close" title="Close" class="close">×</a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" asp-antiforgery="true" asp-action="EditAddress">
+                                                <div class="row gtr-uniform">
+                                                    <!-- Country -->
+                                                    <div class="col-12 col-12-xsmall">
+                                                        <input type="text" name="country" id="demo-name" value="@employee.Country" />
+                                                        <input type="hidden" name="id" id="demo-name" value="@employee.Id" />
+                                                    </div>
+                                                    <!-- City -->
+                                                    <div class="col-12 col-12-xsmall">
+                                                        <input type="text" name="city" id="demo-name" value="@employee.City" />
+                                                    </div>
+                                                    <!-- Street -->
+                                                    <div class="col-12 col-12-xsmall">
+                                                        <input type="text" name="street" id="demo-name" value="@employee.Street" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <ul class="actions">
+                                                            <li><input type="submit" value="Edit" class="primary" /></li>
+                                                            <li><input type="reset" value="Reset" /></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    var scrollbar = document.body.clientWidth - window.innerWidth + 'px';
+
+                                    document.querySelector('[href="#update.@employee.Id"]').addEventListener('click', function () {
+                                        document.body.style.overflow = 'hidden';
+                                        document.querySelector('#update.@employee.Id').style.marginLeft = scrollbar;
+                                    });
+                                    document.querySelector('[href="#close"]').addEventListener('click', function () {
+                                        document.body.style.overflow = 'visible';
+                                        document.querySelector('#openModal').style.marginLeft = '0px';
+                                    });
+                                });
+                            </script>
+                        </td>
+                        @*<td>
+                            <a asp-action="DeleteFromPosition" asp-all-route-data='new Dictionary<string, string> {
+                            {"positionId",$"{employee.City}" },{"employeeId",$"{employee.Id}"}"}}'>Delete</a>
+                        </td>*@
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        <ul class="actions special">
+            <li>
+                <a asp-action="Create" class="button large primary">Add New</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.scrollBy(0, 700);
+    });
+</script>
+
+

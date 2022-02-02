@@ -9,7 +9,6 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,14 +16,8 @@
                 {
                     <tr>
                         <td>@position.Name</td>
-                        <td>@position.Description</td>
                         <td>
-                            <a asp-action="Update" asp-all-route-data='new Dictionary<string, string> {
-                            {"id",$"{@position.Id}"},{"name",$"{@position.Name}"},{"description",$"{@position.Description}"}}'>Edit</a>
-                        </td>
-                        <td>
-                            <a asp-action="Delete" onclick="return confirm('Are you really want to delete this position?')"
-                               asp-route-id="@position.Id">Delete</a>
+                            <a asp-action="GetTable" asp-route-id="@position.Id">Show Employees</a>
                         </td>
                     </tr>
 
@@ -38,9 +31,3 @@
         </ul>
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        window.scrollBy(0, 700);
-    });
-</script>
-
