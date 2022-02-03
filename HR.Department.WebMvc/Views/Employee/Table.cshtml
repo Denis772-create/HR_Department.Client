@@ -24,7 +24,7 @@
                         <td>@employee.Phone</td>
                         <td>@employee.RequiredSalary</td>
                         <td>
-                            <a href="#@employee.Id">Show Address</a>
+                            <a href="#@employee.Id">Show</a>
                             <!-- Modal Window -->
                             <div id="@employee.Id" class="modal">
                                 <div class="modal-dialog">
@@ -40,24 +40,27 @@
                                 </div>
                             </div>
                             <script>
-                                document.addEventListener("DOMContentLoaded", function () {
+                                document.addEventListener("DOMContentLoaded", function ()
+                                {
                                     var scrollbar = document.body.clientWidth - window.innerWidth + 'px';
 
-                                    document.querySelector('[href="#@employee.Id"]').addEventListener('click', function () {
+                                    document.querySelector('[href="#@employee.Id"]').addEventListener('click', function ()
+                                    {
                                         document.body.style.overflow = 'hidden';
                                         document.querySelector('#@employee.Id').style.marginLeft = scrollbar;
                                     });
-                                    document.querySelector('[href="#close"]').addEventListener('click', function () {
+                                    document.querySelector('[href="#close"]').addEventListener('click', function ()
+                                    {
                                         document.body.style.overflow = 'visible';
-                                        document.querySelector('#openModal').style.marginLeft = '0px';
+                                        document.querySelector('#@employee.Id').style.marginLeft = '0px';
                                     });
                                 });
                             </script>
                         </td>
                         <td>
-                            <a href="#update.@employee.Id">Edit Address</a>
+                            <a href="#@employee.Phone">Edit Address</a>
                             <!-- Modal Window -->
-                            <div id="update.@employee.Id" class="modal">
+                            <div id="@employee.Phone" class="modal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -79,6 +82,7 @@
                                                     <!-- Street -->
                                                     <div class="col-12 col-12-xsmall">
                                                         <input type="text" name="street" id="demo-name" value="@employee.Street" />
+                                                        <input type="hidden" name="positionId" value="@ViewBag.PositionId"/>
                                                     </div>
                                                     <div class="col-12">
                                                         <ul class="actions">
@@ -93,24 +97,28 @@
                                 </div>
                             </div>
                             <script>
-                                document.addEventListener("DOMContentLoaded", function () {
+                                document.addEventListener("DOMContentLoaded", function ()
+                                {
                                     var scrollbar = document.body.clientWidth - window.innerWidth + 'px';
 
-                                    document.querySelector('[href="#update.@employee.Id"]').addEventListener('click', function () {
+                                    document.querySelector('[href="#@employee.Phone"]').addEventListener('click', function ()
+                                    {
                                         document.body.style.overflow = 'hidden';
-                                        document.querySelector('#update.@employee.Id').style.marginLeft = scrollbar;
+                                        document.querySelector('#@employee.Phone').style.marginLeft = scrollbar;
                                     });
-                                    document.querySelector('[href="#close"]').addEventListener('click', function () {
+                                    document.querySelector('[href="#close"]').addEventListener('click', function ()
+                                    {
                                         document.body.style.overflow = 'visible';
-                                        document.querySelector('#openModal').style.marginLeft = '0px';
+                                        document.querySelector('#@employee.Phone').style.marginLeft = '0px';
                                     });
                                 });
                             </script>
                         </td>
-                        @*<td>
-                            <a asp-action="DeleteFromPosition" asp-all-route-data='new Dictionary<string, string> {
-                            {"positionId",$"{employee.City}" },{"employeeId",$"{employee.Id}"}"}}'>Delete</a>
-                        </td>*@
+                        <td>
+                            <a onclick="return confirm('Are you really want to delete this position?')"
+                               asp-controller="Position" asp-action="DeleteEmployee" asp-all-route-data='new Dictionary<string, string> {
+                                {"positionId",$"{ViewBag.PositionId}" },{"employeeId",$"{employee.Id}"}}'>Delete</a>
+                        </td>
                     </tr>
 
                 }
@@ -118,7 +126,8 @@
         </table>
         <ul class="actions special">
             <li>
-                <a asp-action="Create" class="button large primary">Add New</a>
+                <a asp-controller="Position" asp-action="AddNewEmployee" asp-route-id="@ViewBag.PositionId" class="button large primary">Add New</a>
+                <a asp-controller="Position" asp-action="AddExistingEmployee" asp-route-positionId="@ViewBag.PositionId" class="button large primary">Add Existing</a>
             </li>
         </ul>
     </div>

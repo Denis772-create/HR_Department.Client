@@ -1,0 +1,27 @@
+﻿
+<div id="main">
+    <header class="major">
+        <h2>Add a Existing employee to this position</h2>
+    </header>
+    <form method="post" asp-antiforgery="true" asp-action="AddExistingEmployee">
+        <div class="row gtr-uniform">
+            <div class="col-6">
+                <select name="employeeId" asp-items="@ViewBag.Employees">
+                    <option selected="selected" disabled="disabled">Сhoose an employee</option>
+                </select>
+                <input type="hidden" name="positionId" value="@ViewBag.PositionId"/>
+            </div>
+            <div class="col-12">
+                <ul class="actions">
+                    <li><input type="submit" value="Add" class="primary" /></li>
+                    <li><input type="reset" value="Reset" /></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.scrollBy(0, 700);
+    });
+</script>

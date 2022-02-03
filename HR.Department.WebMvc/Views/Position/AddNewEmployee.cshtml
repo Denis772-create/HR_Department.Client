@@ -1,40 +1,44 @@
 ﻿@model EmployeeForAddingToPositionVm
 <div id="main">
     <header class="major">
-        <h2>Add a new employee to this position</h2>
+        <h2>Create new position in our company</h2>
     </header>
-    <form method="post" asp-antiforgery="true" asp-action="Create">
+    <form method="post" asp-antiforgery="true" asp-action="AddNewEmployee">
         <div class="row gtr-uniform">
-            <!-- Name -->
-            <div class="col-12 col-12-xsmall">
+            <!--  -->
+            <div class="col-6 col-12-xsmall">
                 <input type="text" asp-for="FirstName" placeholder="FirstName" />
+                <input type="hidden" asp-for="PositionId" value="@ViewBag.PositionId"/>
             </div>
-            <!-- Name -->
-            <div class="col-12 col-12-xsmall">
+            <!--  -->
+            <div class="col-6 col-12-xsmall">
                 <input type="text" asp-for="Surname" placeholder="Surname" />
             </div>
-            <!-- Name -->
-            <div class="col-12 col-12-xsmall">
-                <input type="text" asp-for="Phone" placeholder="Phone" />
-            </div>
-            <!-- Name -->
-            <div class="col-12 col-12-xsmall">
+            <!--  -->
+            <div class="col-6 col-12-xsmall">
                 <input type="text" asp-for="Country" placeholder="Country" />
             </div>
-            <!-- Name -->
-            <div class="col-12 col-12-xsmall">
+            <!--  -->
+            <div class="col-6 col-12-xsmall">
                 <input type="text" asp-for="City" placeholder="City" />
             </div>
-            <!-- Name -->
-            <div class="col-12 col-12-xsmall">
+            <!--  -->
+            <div class="col-6 col-12-xsmall">
                 <input type="text" asp-for="Street" placeholder="Street" />
             </div>
-            <!-- Name -->
-            <div class="col-12 col-12-xsmall">
+            <!--  -->
+            <div class="col-6 col-12-xsmall">
+            </div>
+
+            <div class="col-4 col-12-xsmall">
+                <input type="tel" asp-for="Phone" placeholder="Phone" />
+            </div>
+            <!--  -->
+            <div class="col-4 col-12-xsmall">
                 <input type="number" asp-for="Age" placeholder="Age" />
             </div>
-            <!-- Name -->
-            <div class="col-12 col-12-xsmall">
+            <!--  -->
+            <div class="col-4 col-12-xsmall">
                 <input type="number" asp-for="RequiredSalary" placeholder="RequiredSalary" />
             </div>
             <div class="col-12">

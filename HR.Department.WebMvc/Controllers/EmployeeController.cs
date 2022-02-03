@@ -37,11 +37,10 @@ namespace HR.Department.WebMvc.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> GetTable(Guid id)
+        public async Task<IActionResult> GetTable(string positionId)
         {
-            var response = await _httpClient.GetAsync($"employee/{id}");
+            ViewBag.PositionId = positionId;
+            var response = await _httpClient.GetAsync($"employee/{ViewBag.PositionId}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -52,46 +51,8 @@ namespace HR.Department.WebMvc.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            var typesHttpresponse = await _httpClient.GetAsync("position/types");
-            if (typesHttpresponse.IsSuccessStatusCode)
-            {
-                var listOfTypes = (await typesHttpresponse.Content
-                    .ReadFromJsonAsync(typeof(IEnumerable<PositionTypeVm>))) as IEnumerable<PositionTypeVm>;
-
-                ViewBag.PositionTypes = new SelectList(listOfTypes, "Id", "Name");
-            }
-
-            return View();
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Create(PositionForCreateVm positionForCreateVm)
-        {
-            var jsonContent = new StringContent(JsonSerializer.Serialize(positionForCreateVm),
-                Encoding.UTF8, MediaTypeNames.Application.Json);
-
-            using var httpResponseMessage =
-                await _httpClient.PostAsync("position", jsonContent);
-
-            httpResponseMessage.EnsureSuccessStatusCode();
-
-            return RedirectToAction("GetTable");
-        }
-
-        //[HttpGet]
-        //public IActionResult EditAddress(Guid id, string city, string country, string street)
-        //{
-        //    //ViewBag.Id = id;
-        //    //ViewBag.Name = name;
-        //    //ViewBag.Description = description;
-        //    //return View();
-        //}
-
-        [HttpPost]
-        public async Task<IActionResult> EditAddress(Guid id, string country, string city, string street)
+        public async Task<IActionResult> EditAddress(Guid id, Guid positionId, string country, string city, string street)
         {
             var jsonContent = new StringContent(JsonSerializer.Serialize(new { country, city, street }),
                 Encoding.UTF8, MediaTypeNames.Application.Json);
@@ -101,19 +62,9 @@ namespace HR.Department.WebMvc.Controllers
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
-            return RedirectToAction("GetTable");
+            return RedirectToAction("GetTable", new { positionId = positionId });
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            using var httpResponseMessage =
-                await _httpClient.DeleteAsync($"position/{id}");
-
-            httpResponseMessage.EnsureSuccessStatusCode();
-
-            return RedirectToAction("GetTable");
-        }
 
     }
 }

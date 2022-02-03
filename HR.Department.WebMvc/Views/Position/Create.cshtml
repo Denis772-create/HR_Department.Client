@@ -7,15 +7,15 @@
         <div class="row gtr-uniform">
             <!-- Name -->
             <div class="col-12 col-12-xsmall">
-                <input type="text" asp-for="Name" id="demo-name" placeholder="Name" />
+                <input type="text" asp-for="Name" placeholder="Name" />
             </div>
             <!-- Break -->
             <div class="col-12">
-                <select asp-for="TypePositionId" id="demo-category" asp-items="ViewBag.PositionTypes"></select>
+                <select asp-for="TypePositionId" asp-items="ViewBag.PositionTypes"></select>
             </div>
             <!-- Description -->
             <div class="col-12">
-                <textarea asp-for="Description" id="demo-message" placeholder="Enter your description" rows="6"></textarea>
+                <textarea asp-for="Description" placeholder="Enter your description" rows="6"></textarea>
             </div>
             <div class="col-12">
                 <ul class="actions">

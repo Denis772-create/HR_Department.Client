@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.Mime;
@@ -98,6 +99,64 @@ namespace HR.Department.WebMvc.Controllers
             httpResponseMessage.EnsureSuccessStatusCode();
 
             return RedirectToAction("GetTable");
+        }
+
+        public async Task<IActionResult> DeleteEmployee(Guid positionId, Guid employeeId)
+        {
+            using var httpResponseMessage =
+                await _httpClient.DeleteAsync($"position/{positionId}/{employeeId}");
+
+            httpResponseMessage.EnsureSuccessStatusCode();
+
+            return RedirectToAction("GetTable", "Employee",
+                new { positionId = positionId });
+        }
+
+        public IActionResult AddNewEmployee(Guid id)
+        {
+            ViewBag.PositionId = id;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddNewEmployee(
+            EmployeeForAddingToPositionVm employeeForAddingToPositionVm)
+        {
+            var jsonContent = new StringContent(JsonSerializer.Serialize(employeeForAddingToPositionVm),
+                Encoding.UTF8, MediaTypeNames.Application.Json);
+
+            var httpResponseMessage =
+                await _httpClient.PostAsync("position/new/employee", jsonContent);
+
+            httpResponseMessage.EnsureSuccessStatusCode();
+
+            return RedirectToAction("GetTable", "Employee",
+                new { positionId = employeeForAddingToPositionVm.PositionId });
+        }
+
+        public async Task<IActionResult> AddExistingEmployee(Guid positionId)
+        {
+            var httpResponseMessage = await _httpClient.GetAsync("employee");
+            var listEmployee = (await httpResponseMessage
+                .Content.ReadFromJsonAsync(typeof(EmployeeListVm))) as EmployeeListVm;
+
+            ViewBag.Employees =
+                new SelectList(listEmployee?.EmployeeList, "Id", "Surname");
+
+            ViewBag.PositionId = positionId;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddExistingEmployee(Guid positionId, Guid employeeId)
+        {
+            var httpResponseMessage =
+                await _httpClient.PutAsync($"position/{positionId}/{employeeId}", default);
+
+            httpResponseMessage.EnsureSuccessStatusCode();
+
+            return RedirectToAction("GetTable", "Employee",
+                new { positionId = positionId });
         }
     }
 }
