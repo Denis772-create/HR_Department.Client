@@ -1,20 +1,16 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.Department.WebMvc.Controllers
 {
-    public class SalaryController : Controller
+    public class SalaryController : BaseController
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        public SalaryController(IHttpClientFactory httpClientFactory) =>
-            _httpClientFactory = httpClientFactory;
+        public SalaryController(IHttpContextAccessor contextAccessor) : base(contextAccessor) { }
 
         public async Task<IActionResult> UpdateSalary()
         {
-            var client = _httpClientFactory.CreateClient("MvcClient");
-            var response = await client
+            var response = await HttpClient
                 .PutAsync("employee", default);
 
             if (response.IsSuccessStatusCode)

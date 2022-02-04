@@ -22,15 +22,15 @@
                 implementation of the sixth paragraph. At this point, when you click <br />
                 on the button, a search is made for all employees whose salary is less<br />
                 than $ 500, and, accordingly, an increase for these employees to the  <br />
-                one that they demanded when applying for this position. Perhaps <br />
+                one that they demanded when applying for this position. Perhaps       <br />
                 some points do not look logical, but I tried first of all to implement the <br />
                 functionality of the task requirement.
-            </p>
+            </p>        
         </header>
         <a href="#" class="image main"><img src="~/images/bigstock-Recruitment-Concept-Idea-Of-C-250362193.jpg" alt="" /></a>
         <ul class="actions special">
             <li>
-                <a asp-controller="Salary" asp-action="UpdateSalary" class="button large">Update Salary</a> 
+                <a asp-controller="Salary" asp-action="UpdateSalary" class="button large" onclick="return confirm('For further actions, you need to log in. Do you agree?')">Update Salary</a>
             </li>
         </ul>
     </article>

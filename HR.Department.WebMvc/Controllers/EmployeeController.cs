@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.Mime;
@@ -7,26 +6,20 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HR.Department.WebMvc.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HR.Department.WebMvc.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeeController : BaseController
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly HttpClient _httpClient;
-
-        public EmployeeController(IHttpClientFactory httpClientFactory)
-        {
-            _httpClientFactory = httpClientFactory;
-            _httpClient = _httpClientFactory.CreateClient("MvcClient");
-        }
+        public EmployeeController(IHttpContextAccessor contextAccessor) : base(contextAccessor) { }
 
         [HttpGet]
         public async Task<IActionResult> TableEmployeeByPositions()
         {
-            var response = await _httpClient.GetAsync("position");
+            var response = await HttpClient.GetAsync("position");
+
 
             if (response.IsSuccessStatusCode)
             {
@@ -40,7 +33,7 @@ namespace HR.Department.WebMvc.Controllers
         public async Task<IActionResult> GetTable(string positionId)
         {
             ViewBag.PositionId = positionId;
-            var response = await _httpClient.GetAsync($"employee/{ViewBag.PositionId}");
+            var response = await HttpClient.GetAsync($"employee/{ViewBag.PositionId}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -58,7 +51,7 @@ namespace HR.Department.WebMvc.Controllers
                 Encoding.UTF8, MediaTypeNames.Application.Json);
 
             using var httpResponseMessage =
-                await _httpClient.PutAsync($"employee/{id}", jsonContent);
+                await HttpClient.PutAsync($"employee/{id}", jsonContent);
 
             httpResponseMessage.EnsureSuccessStatusCode();
 

@@ -1,10 +1,9 @@
-using System;
+using HR.Department.WebMvc.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Net.Http.Headers;
 
 namespace HR.Department.WebMvc
 {
@@ -17,31 +16,23 @@ namespace HR.Department.WebMvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddHttpClient("MvcClient", client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:5001/api/");
-                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "*/*");
-                client.DefaultRequestHeaders.Add(HeaderNames.UserAgent, "HR.Department.MVC.Client");
-            });
+            services.ConfigureHttpClient();
             services.AddHttpContextAccessor();
+            services.ConfigureOIdCAuthentication();
+            services.ConfigureAuthorization();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });

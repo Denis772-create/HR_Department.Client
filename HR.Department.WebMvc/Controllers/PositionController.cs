@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.Mime;
@@ -8,26 +7,20 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HR.Department.WebMvc.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HR.Department.WebMvc.Controllers
 {
-    public class PositionController : Controller
+    public class PositionController : BaseController
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly HttpClient _httpClient;
-
-        public PositionController(IHttpClientFactory httpClientFactory)
-        {
-            _httpClientFactory = httpClientFactory;
-            _httpClient = _httpClientFactory.CreateClient("MvcClient");
-        }
+        public PositionController(IHttpContextAccessor contextAccessor) : base(contextAccessor) { }
 
         [HttpGet]
         public async Task<IActionResult> GetTable()
         {
-            var response = await _httpClient.GetAsync("position");
+            var response = await HttpClient.GetAsync("position");
 
             if (response.IsSuccessStatusCode)
             {
@@ -41,7 +34,7 @@ namespace HR.Department.WebMvc.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var typesHttpresponse = await _httpClient.GetAsync("position/types");
+            var typesHttpresponse = await HttpClient.GetAsync("position/types");
             if (typesHttpresponse.IsSuccessStatusCode)
             {
                 var listOfTypes = (await typesHttpresponse.Content
@@ -60,7 +53,7 @@ namespace HR.Department.WebMvc.Controllers
                 Encoding.UTF8, MediaTypeNames.Application.Json);
 
             using var httpResponseMessage =
-                await _httpClient.PostAsync("position", jsonContent);
+                await HttpClient.PostAsync("position", jsonContent);
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
@@ -83,7 +76,7 @@ namespace HR.Department.WebMvc.Controllers
                 Encoding.UTF8, MediaTypeNames.Application.Json);
 
             using var httpResponseMessage =
-                await _httpClient.PutAsync("position", jsonContent);
+                await HttpClient.PutAsync("position", jsonContent);
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
@@ -94,7 +87,7 @@ namespace HR.Department.WebMvc.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             using var httpResponseMessage =
-                await _httpClient.DeleteAsync($"position/{id}");
+                await HttpClient.DeleteAsync($"position/{id}");
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
@@ -104,7 +97,7 @@ namespace HR.Department.WebMvc.Controllers
         public async Task<IActionResult> DeleteEmployee(Guid positionId, Guid employeeId)
         {
             using var httpResponseMessage =
-                await _httpClient.DeleteAsync($"position/{positionId}/{employeeId}");
+                await HttpClient.DeleteAsync($"position/{positionId}/{employeeId}");
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
@@ -126,7 +119,7 @@ namespace HR.Department.WebMvc.Controllers
                 Encoding.UTF8, MediaTypeNames.Application.Json);
 
             var httpResponseMessage =
-                await _httpClient.PostAsync("position/new/employee", jsonContent);
+                await HttpClient.PostAsync("position/new/employee", jsonContent);
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
@@ -136,7 +129,7 @@ namespace HR.Department.WebMvc.Controllers
 
         public async Task<IActionResult> AddExistingEmployee(Guid positionId)
         {
-            var httpResponseMessage = await _httpClient.GetAsync("employee");
+            var httpResponseMessage = await HttpClient.GetAsync("employee");
             var listEmployee = (await httpResponseMessage
                 .Content.ReadFromJsonAsync(typeof(EmployeeListVm))) as EmployeeListVm;
 
@@ -151,7 +144,7 @@ namespace HR.Department.WebMvc.Controllers
         public async Task<IActionResult> AddExistingEmployee(Guid positionId, Guid employeeId)
         {
             var httpResponseMessage =
-                await _httpClient.PutAsync($"position/{positionId}/{employeeId}", default);
+                await HttpClient.PutAsync($"position/{positionId}/{employeeId}", default);
 
             httpResponseMessage.EnsureSuccessStatusCode();
 
