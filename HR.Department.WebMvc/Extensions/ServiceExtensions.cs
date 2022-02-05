@@ -40,6 +40,7 @@ namespace HR.Department.WebMvc.Extensions
                     config.ResponseType = "code";
 
                     config.Scope.Add("DepartmentAPI");
+                    config.Scope.Add("offline_access");
 
                     config.GetClaimsFromUserInfoEndpoint = true;
 

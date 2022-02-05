@@ -6,6 +6,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using HR.Department.WebMvc.Filters;
 using HR.Department.WebMvc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HR.Department.WebMvc.Controllers
 {
+    [RefreshToken]
     public class PositionController : BaseController
     {
         public PositionController(IHttpContextAccessor contextAccessor) : base(contextAccessor) { }

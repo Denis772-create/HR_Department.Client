@@ -5,12 +5,14 @@ using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using HR.Department.WebMvc.Filters;
 using HR.Department.WebMvc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.Department.WebMvc.Controllers
 {
+    [RefreshToken]
     public class EmployeeController : BaseController
     {
         public EmployeeController(IHttpContextAccessor contextAccessor) : base(contextAccessor) { }

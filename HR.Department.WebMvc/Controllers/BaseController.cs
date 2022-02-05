@@ -12,8 +12,8 @@ namespace HR.Department.WebMvc.Controllers
     public class BaseController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;
-        protected HttpClient HttpClient { get; }
-        protected ClaimManager ClaimManager { get; set; }
+        public HttpClient HttpClient { get; }
+        public ClaimManager ClaimManager { get; set; }
 
 
         public BaseController(IHttpContextAccessor httpContextAccessor)
@@ -23,7 +23,7 @@ namespace HR.Department.WebMvc.Controllers
 
             HttpClient = _clientFactory.CreateClient("MvcClient");
             ClaimManager = new ClaimManager(httpContext, httpContext.User);
-           // HttpClient.SetBearerToken(ClaimManager.AccessToken);
+            HttpClient.SetBearerToken(ClaimManager.AccessToken);
         }
     }
 }

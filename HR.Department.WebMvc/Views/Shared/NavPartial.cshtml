@@ -1,17 +1,16 @@
 ﻿<nav id="nav">
     <ul class="links">
-        @if (!User.Identity.IsAuthenticated)
+        @if (User.Identity.IsAuthenticated)
         {
             <li><a asp-controller="Home" asp-action="Index">Main</a></li>
             <li><a asp-controller="Position" asp-action="GetTable">Positions</a></li>
             <li><a asp-controller="Employee" asp-action="TableEmployeeByPositions">Employees</a></li>
+            <li><a asp-controller="Account" asp-action="Logout">logout</a></li>
         }
-        @*else
+        else
         {
-            <li><a asp-controller="Home" asp-action="Index" onclick="return confirm('For further actions, you need to log in. Do you agree?')">Main</a></li>
-            <li><a asp-controller="Position" asp-action="GetTable" onclick="return confirm('For further actions, you need to log in. Do you agree?')">Positions</a></li>
-            <li><a asp-controller="Employee" asp-action="TableEmployeeByPositions" onclick="return confirm('For further actions, you need to log in. Do you agree?')">Employees</a></li>
-        }*@
+            <li><a asp-controller="Account" asp-action="AuthIndex">log in</a></li>
+        }
     </ul>
     <ul class="icons">
         <li><a href="https://www.linkedin.com/in/denis-aleksandrov-000976211/" class="icon brands fa-linkedin-in"><span class="label">In</span></a></li>

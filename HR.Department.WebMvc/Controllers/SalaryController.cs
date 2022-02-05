@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using HR.Department.WebMvc.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.Department.WebMvc.Controllers
 {
+    [RefreshToken]
     public class SalaryController : BaseController
     {
         public SalaryController(IHttpContextAccessor contextAccessor) : base(contextAccessor) { }

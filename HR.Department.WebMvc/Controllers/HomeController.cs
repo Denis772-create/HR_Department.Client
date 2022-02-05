@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HR.Department.WebMvc.Controllers
 {
@@ -9,6 +10,5 @@ namespace HR.Department.WebMvc.Controllers
         {
             return View();
         }
-
     }
 }
