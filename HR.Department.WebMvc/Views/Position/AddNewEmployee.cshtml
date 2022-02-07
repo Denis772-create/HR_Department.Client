@@ -7,7 +7,8 @@
         <div class="row gtr-uniform">
             <!--  -->
             <div class="col-6 col-12-xsmall">
-                <input type="text" asp-for="FirstName" placeholder="FirstName" />
+                <span asp-validation-for="FirstName"></span>
+                <input type="text" asp-for="FirstName" placeholder="FirstName"/>
                 <input type="hidden" asp-for="PositionId" value="@ViewBag.PositionId"/>
             </div>
             <!--  -->
@@ -31,15 +32,18 @@
             </div>
 
             <div class="col-4 col-12-xsmall">
-                <input type="tel" asp-for="Phone" placeholder="Phone" />
+                <span asp-validation-for="Phone"></span>
+                <input type="tel" asp-for="Phone" placeholder="Phone"/>
             </div>
             <!--  -->
             <div class="col-4 col-12-xsmall">
-                <input type="number" asp-for="Age" placeholder="Age" />
+                <span asp-validation-for="Age"></span>
+                <input type="number" asp-for="Age" placeholder="Age"/>
             </div>
             <!--  -->
             <div class="col-4 col-12-xsmall">
-                <input type="number" asp-for="RequiredSalary" placeholder="RequiredSalary" />
+                <span asp-validation-for="RequiredSalary"></span>
+                <input type="number" asp-for="RequiredSalary" placeholder="RequiredSalary"/>
             </div>
             <div class="col-12">
                 <ul class="actions">

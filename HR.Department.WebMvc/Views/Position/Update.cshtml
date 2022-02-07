@@ -7,12 +7,13 @@
         <div class="row gtr-uniform">
             <!-- Name -->
             <div class="col-12 col-12-xsmall">
-                <input type="text" asp-for="Name" id="demo-name" value="@ViewBag.Name" />
-                <input type="hidden" asp-for="Id" id="demo-name" value="@ViewBag.Id" />
+                <span asp-validation-for="Name"></span>
+                <input type="text" asp-for="Name" value="@ViewBag.Name"/>
+                <input type="hidden" asp-for="Id" value="@ViewBag.Id"/>
             </div>
             <!-- Description -->
             <div class="col-12">
-                <textarea asp-for="Description" id="demo-message" aria-valuemax="40" placeholder="@ViewBag.Description" rows="6"></textarea>
+                <textarea asp-for="Description" aria-valuemax="100" placeholder="@ViewBag.Description" rows="6"></textarea>
             </div>
             <div class="col-12">
                 <ul class="actions">

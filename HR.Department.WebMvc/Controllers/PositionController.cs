@@ -49,6 +49,7 @@ namespace HR.Department.WebMvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PositionForCreateVm positionForCreateVm)
         {
             var jsonContent = new StringContent(JsonSerializer.Serialize(positionForCreateVm),
@@ -72,6 +73,7 @@ namespace HR.Department.WebMvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(PositionForUpdateVm forUpdateVm)
         {
             var jsonContent = new StringContent(JsonSerializer.Serialize(forUpdateVm),
@@ -114,6 +116,7 @@ namespace HR.Department.WebMvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddNewEmployee(
             EmployeeForAddingToPositionVm employeeForAddingToPositionVm)
         {
@@ -143,6 +146,7 @@ namespace HR.Department.WebMvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddExistingEmployee(Guid positionId, Guid employeeId)
         {
             var httpResponseMessage =

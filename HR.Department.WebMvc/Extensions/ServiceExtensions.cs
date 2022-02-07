@@ -44,12 +44,12 @@ namespace HR.Department.WebMvc.Extensions
 
                     config.GetClaimsFromUserInfoEndpoint = true;
 
-                    config.ClaimActions.MapJsonKey(ClaimTypes.DateOfBirth, ClaimTypes.DateOfBirth);
+                    config.ClaimActions.MapJsonKey(ClaimTypes.Role, ClaimTypes.Role);
                 });
 
         public static void ConfigureAuthorization(this IServiceCollection services) =>
             services.AddAuthorization(config =>
-                config.AddPolicy("HasDateOfBirth", builder =>
-                    builder.RequireClaim(ClaimTypes.DateOfBirth)));
+                config.AddPolicy("IsAdmin", builder =>
+                    builder.RequireClaim(ClaimTypes.Role, "Admin")));
     }
 }

@@ -22,7 +22,6 @@ namespace HR.Department.WebMvc.Controllers
         {
             var response = await HttpClient.GetAsync("position");
 
-
             if (response.IsSuccessStatusCode)
             {
                 var contentStream = await response.Content.ReadFromJsonAsync(typeof(PositionListVm));
@@ -47,6 +46,7 @@ namespace HR.Department.WebMvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAddress(Guid id, Guid positionId, string country, string city, string street)
         {
             var jsonContent = new StringContent(JsonSerializer.Serialize(new { country, city, street }),

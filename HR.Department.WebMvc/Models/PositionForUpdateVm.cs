@@ -7,9 +7,9 @@ namespace HR.Department.WebMvc.Models
     {
         [Required]
         public Guid Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Name is required.")]
         public string Name { get; set; }
-        [MaxLength(30)]
+        [MaxLength(100)]
         public string Description { get; set; }
 
     }

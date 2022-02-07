@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HR.Department.WebMvc.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "IsAdmin")]
     public class BaseController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;
