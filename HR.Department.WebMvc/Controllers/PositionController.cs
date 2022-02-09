@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HR.Department.WebMvc.Filters;
-using HR.Department.WebMvc.Models;
+using HR.Department.WebMvc.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,8 +18,7 @@ namespace HR.Department.WebMvc.Controllers
     public class PositionController : BaseController
     {
         public PositionController(IHttpContextAccessor contextAccessor) : base(contextAccessor) { }
-
-        [HttpGet]
+        
         public async Task<IActionResult> GetTable()
         {
             var response = await HttpClient.GetAsync("position");
@@ -32,8 +31,7 @@ namespace HR.Department.WebMvc.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
-        [HttpGet]
+        
         public async Task<IActionResult> Create()
         {
             var typesHttpresponse = await HttpClient.GetAsync("position/types");
@@ -62,8 +60,7 @@ namespace HR.Department.WebMvc.Controllers
 
             return RedirectToAction("GetTable");
         }
-
-        [HttpGet]
+        
         public IActionResult Update(Guid id, string name, string description)
         {
             ViewBag.Id = id;
@@ -86,8 +83,7 @@ namespace HR.Department.WebMvc.Controllers
 
             return RedirectToAction("GetTable");
         }
-
-        [HttpGet]
+        
         public async Task<IActionResult> Delete(Guid id)
         {
             using var httpResponseMessage =

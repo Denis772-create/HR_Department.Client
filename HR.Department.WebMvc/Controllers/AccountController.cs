@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using HR.Department.WebMvc.Models;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -22,6 +20,7 @@ namespace HR.Department.WebMvc.Controllers
             {
                 RedirectUri = "Home/Index"
             };
+
             return SignOut(parameters,
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 OpenIdConnectDefaults.AuthenticationScheme);

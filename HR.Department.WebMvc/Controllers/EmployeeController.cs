@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HR.Department.WebMvc.Filters;
-using HR.Department.WebMvc.Models;
+using HR.Department.WebMvc.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,8 +16,7 @@ namespace HR.Department.WebMvc.Controllers
     public class EmployeeController : BaseController
     {
         public EmployeeController(IHttpContextAccessor contextAccessor) : base(contextAccessor) { }
-
-        [HttpGet]
+        
         public async Task<IActionResult> TableEmployeeByPositions()
         {
             var response = await HttpClient.GetAsync("position");

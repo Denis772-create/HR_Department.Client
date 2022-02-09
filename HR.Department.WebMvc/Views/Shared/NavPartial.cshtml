@@ -3,7 +3,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <li><a asp-controller="Home" asp-action="Index">Main</a></li>
-            <li><a asp-controller="Position" asp-action="GetTable">Positions</a></li>
+            <li><a asp-controller="Position" asp-action="GetTable">PositionVms</a></li>
             <li><a asp-controller="Employee" asp-action="TableEmployeeByPositions">Employees</a></li>
             <li><a asp-controller="Account" asp-action="Logout">logout</a></li>
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace HR.Department.WebMvc.Models
+namespace HR.Department.WebMvc.ViewModels
 {
     public class EmployeeForAddingToPositionVm
     {

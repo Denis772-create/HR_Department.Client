@@ -24,9 +24,6 @@ namespace HR.Department.WebMvc.Controllers
         }
 
         [HttpGet("{count}")]
-        public IActionResult Index(string count)
-        {
-            return View("Index", count);
-        }
+        public IActionResult Index(string count) => View("Index", count);
     }
 }

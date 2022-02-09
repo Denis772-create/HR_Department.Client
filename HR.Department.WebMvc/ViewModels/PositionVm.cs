@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace HR.Department.WebMvc.Models
+namespace HR.Department.WebMvc.ViewModels
 {
-    public class Position
+    public class PositionVm
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HR.Department.WebMvc.Models
+namespace HR.Department.WebMvc.ViewModels
 {
     public class EmployeeVm
     {

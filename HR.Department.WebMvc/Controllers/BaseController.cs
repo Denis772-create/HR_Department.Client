@@ -11,7 +11,6 @@ namespace HR.Department.WebMvc.Controllers
     [Authorize(Policy = "IsAdmin")]
     public class BaseController : Controller
     {
-        private readonly IHttpClientFactory _clientFactory;
         public HttpClient HttpClient { get; }
         public ClaimManager ClaimManager { get; set; }
 
@@ -19,9 +18,9 @@ namespace HR.Department.WebMvc.Controllers
         public BaseController(IHttpContextAccessor httpContextAccessor)
         {
             var httpContext = httpContextAccessor.HttpContext;
-            _clientFactory = httpContext.RequestServices.GetService<IHttpClientFactory>();
+            var clientFactory = httpContext.RequestServices.GetService<IHttpClientFactory>();
 
-            HttpClient = _clientFactory.CreateClient("MvcClient");
+            HttpClient = clientFactory.CreateClient("MvcClient");
             ClaimManager = new ClaimManager(httpContext, httpContext.User);
             HttpClient.SetBearerToken(ClaimManager.AccessToken);
         }
