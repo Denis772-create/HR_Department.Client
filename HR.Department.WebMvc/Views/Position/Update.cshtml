@@ -1,0 +1,31 @@
+﻿@model HR.Department.WebMvc.ViewModels.PositionForUpdateVm
+<div id="main">
+    <header class="major">
+        <h2>Update position in our company</h2>
+    </header>
+    <form method="post" asp-antiforgery="true" asp-action="Update">
+        <div class="row gtr-uniform">
+            <!-- Name -->
+            <div class="col-12 col-12-xsmall">
+                <span asp-validation-for="Name"></span>
+                <input type="text" asp-for="Name" value="@ViewBag.Name"/>
+                <input type="hidden" asp-for="Id" value="@ViewBag.Id"/>
+            </div>
+            <!-- Description -->
+            <div class="col-12">
+                <textarea asp-for="Description" aria-valuemax="100" placeholder="@ViewBag.Description" rows="6"></textarea>
+            </div>
+            <div class="col-12">
+                <ul class="actions">
+                    <li><input type="submit" value="Update" class="primary" /></li>
+                    <li><input type="reset" value="Reset" /></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.scrollBy(0, 700);
+    });
+</script>

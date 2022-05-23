@@ -1,0 +1,28 @@
+﻿@model HR.Department.WebMvc.ViewModels.PositionListVm
+
+<div id="main">
+    <header class="major">
+        <h2>PositionVms with Employees in our company</h2>
+    </header>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var position in Model.PositionList)
+                {
+                    <tr>
+                        <td>@position.Name</td>
+                        <td>
+                            <a asp-action="GetTable" asp-route-positionId="@position.Id">Show Employees</a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

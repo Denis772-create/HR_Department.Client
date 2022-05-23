@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div id="main">
+
+    <!-- Featured Post -->
+    <article class="post featured">
+        <header class="major">
+            <span class="date">@DateTime.UtcNow.ToShortDateString()</span>
+            <h2>
+                <a href="#">
+                    Welcome<br />
+                    to the simulator
+                </a>
+            </h2>
+            <p>
+                In this project, I tried to implement all the points according to the<br />
+                assignment. But since I chose, in my opinion, not the most successful<br />
+                domain sphere, it will be a little different. The main feature is the<br />
+                implementation of the sixth paragraph. At this point, when you click <br />
+                on the button, a search is made for all employees whose salary is less<br />
+                than $ 500, and, accordingly, an increase for these employees to the  <br />
+                one that they demanded when applying for this position. Perhaps       <br />
+                some points do not look logical, but I tried first of all to implement the <br />
+                functionality of the task requirement.
+            </p>
+        </header>
+        <a href="#" class="image main"><img src="~/images/bigstock-Recruitment-Concept-Idea-Of-C-250362193.jpg" alt="" /></a>
+        <ul class="actions special">
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li> <a asp-controller="Salary" asp-action="UpdateSalary" class="button large" onclick="return">Update Salary</a></li>
+            }
+            else
+            {
+                <li><a asp-controller="Account" asp-action="AuthIndex" class="button large">log in</a></li>
+            }
+
+        </ul>
+    </article>
+
+    <!-- Posts -->
+    <section class="posts">
+        <article>
+            <header>
+                <span class="date">April 24, 2017</span>
+                <h2>
+                    <a href="#">
+                        Sed magna<br />
+                        ipsum faucibus
+                    </a>
+                </h2>
+            </header>
+            <a href="#" class="image fit"><img src="~/images/pic02.jpg" alt="" /></a>
+            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+            <ul class="actions special">
+                <li><a href="#" class="button">Full Story</a></li>
+            </ul>
+        </article>
+        <article>
+            <header>
+                <span class="date">April 22, 2017</span>
+                <h2>
+                    <a href="#">
+                        Primis eget<br />
+                        imperdiet lorem
+                    </a>
+                </h2>
+            </header>
+            <a href="#" class="image fit"><img src="~/images/pic03.jpg" alt="" /></a>
+            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+            <ul class="actions special">
+                <li><a href="#" class="button">Full Story</a></li>
+            </ul>
+        </article>
+    </section>
+</div>
+
+
+<!-- Modal Window -->
+<div id="openModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Success</h3>
+                <a href="#close" title="Close" class="close">×</a>
+            </div>
+            <div class="modal-body">
+                Updated the salary of @Model employees
+            </div>
+        </div>
+    </div>
+</div>
